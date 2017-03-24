@@ -39,15 +39,15 @@ def text_to_codon(s):
 	return amino_to_codon['STOP'].join(r)
 
 def codon_to_text(s):
-	assert(len(s)%3==0)
 	r=""
 	for x in range(len(s)/3):
 		c=s[x*3:(x+1)*3]
-		a=codon_to_amino[c]
-		if a=='STOP':
-			r=r+" "
-		else:
-			r=r+a
+		if c in codon_to_amino:
+			a=codon_to_amino[c]
+			if a=='STOP':
+				r=r+" "
+			else:
+				r=r+a
 	return r
 
 if len(sys.argv)!=2:
@@ -56,7 +56,8 @@ if len(sys.argv)!=2:
 
 s=sys.argv[1]
 
+print "Message:",s
+print "Decoded message:",codon_to_text(s)
 c=text_to_codon(s_to_s(s))
-print s
-print c
-print codon_to_text(c)
+print "Encoded message:",c
+print "Encoded/Decoded message",codon_to_text(c)
